@@ -8,12 +8,15 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Set up Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
           python-version: '3.9'
+
+      - name: Setup Android SDK
+        uses: android-actions/setup-sdk@v2
 
       - name: Install dependencies
         run: |
@@ -50,7 +53,7 @@ jobs:
           requirements = -r requirements.txt
           orientation = portrait
           android.permissions = CAMERA, RECORD_AUDIO, INTERNET
-          android.arch = armeabi-v7a,arm64-v8a
+          android.archs = armeabi-v7a, arm64-v8a
           [buildozer]
           log_level = 2
           warn_on_root = 1
