@@ -1,0 +1,8 @@
+kivy
+firebase-admin
+opencv-python
+face_recognition
+speechrecognition
+pyttsx3
+numpy
+Pillow

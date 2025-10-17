@@ -1,0 +1,507 @@
+WindowManager:
+    LoginScreen:
+    UserManagementScreen:
+    FacialLoginScreen:
+    ChoiceScreen:
+    FacialRegistrationScreen:
+    VoiceRegistrationScreen:
+    RoleSelectionScreen:
+    MainMenuScreen:
+    CaregiverDashboardScreen:
+    AddPatientScreen:
+    PatientManagementScreen:
+    RemindersListScreen:
+    OrientationScreen:
+    RecognitionScreen:
+
+# Paleta de Colores
+#:set C_DARK_BG (0.1, 0.1, 0.1, 1)
+#:set C_PRIMARY_BLUE (0.1, 0.5, 0.8, 1)
+#:set C_ACTION_RED (0.9, 0.2, 0.2, 1)
+#:set C_ACTION_GREEN (0.2, 0.7, 0.3, 1)
+#:set C_TEXT_WHITE (1, 1, 1, 1)
+#:set C_HINT_GREY (0.6, 0.6, 0.6, 1)
+
+<Button>:
+    background_color: C_PRIMARY_BLUE
+    background_normal: ''
+    background_down: ''
+    color: C_TEXT_WHITE
+
+<Label>:
+    color: C_TEXT_WHITE
+
+<TextInput>:
+    background_color: (0.2, 0.2, 0.2, 1)
+    foreground_color: C_TEXT_WHITE
+    hint_text_color: C_HINT_GREY
+
+<LoginScreen>:
+    name: 'login'
+    canvas.before:
+        Color:
+            rgba: C_DARK_BG
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    FloatLayout:
+        BoxLayout:
+            orientation: 'vertical'
+            padding: 50
+            spacing: 20
+            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+            size_hint: 1, 1
+            Label:
+                text: 'Asistente Cognitivo'
+                font_size: '32sp'
+                size_hint_y: None
+                height: 50
+            Label:
+                text: 'Bienvenido'
+                font_size: '20sp'
+                size_hint_y: None
+                height: 30
+            BoxLayout:
+                size_hint_y: 0.5
+            Button:
+                text: 'Iniciar Sesión'
+                font_size: '20sp'
+                on_press: app.root.current = 'facial_login'
+            Button:
+                text: 'Registrar Nuevo Usuario'
+                font_size: '20sp'
+                on_press: app.root.current = 'choice'
+        Button:
+            text: '⚙️'
+            font_name: 'NotoEmoji-Regular.ttf'
+            font_size: '32sp'
+            size_hint: None, None
+            size: 50, 50
+            pos_hint: {'right': 0.98, 'top': 0.98}
+            on_press: app.root.current = 'user_management'
+            background_color: (0,0,0,0)
+
+<UserManagementScreen>:
+    name: 'user_management'
+    canvas.before:
+        Color:
+            rgba: C_DARK_BG
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 20
+        spacing: 10
+        Label:
+            text: 'Gestión de Usuarios'
+            font_size: '28sp'
+            size_hint_y: None
+            height: 40
+        Label:
+            text: 'Presione "Eliminar" para borrar a un usuario.'
+            font_size: '16sp'
+            size_hint_y: None
+            height: 20
+        ScrollView:
+            GridLayout:
+                id: user_list_layout
+                cols: 1
+                size_hint_y: None
+                height: self.minimum_height
+                spacing: 5
+        Button:
+            text: 'Volver al Inicio'
+            size_hint_y: None
+            height: 40
+            on_press: app.root.current = 'login'
+
+<FacialLoginScreen>:
+    name: 'facial_login'
+    canvas.before:
+        Color:
+            rgba: C_DARK_BG
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 20
+        spacing: 10
+        Label:
+            text: 'Inicio de Sesión Facial'
+            font_size: '28sp'
+            size_hint_y: None
+            height: 40
+        Label:
+            id: feedback_label
+            text: 'Mire a la cámara...'
+            font_size: '16sp'
+            size_hint_y: None
+            height: 20
+        Image:
+            id: camera_feed
+            size_hint_y: 0.8
+        Button:
+            text: 'Volver'
+            font_size: '18sp'
+            size_hint_y: None
+            height: 40
+            on_press: app.root.current = 'login'
+
+<ChoiceScreen>:
+    name: 'choice'
+    canvas.before:
+        Color:
+            rgba: C_DARK_BG
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 50
+        spacing: 20
+        Label:
+            text: 'Tipo de Registro'
+            font_size: '28sp'
+            size_hint_y: None
+            height: 40
+        Label:
+            text: 'Elija cómo desea que el asistente lo reconozca.'
+            font_size: '16sp'
+        Button:
+            text: 'Registro Facial'
+            font_size: '20sp'
+            on_press: app.root.current = 'facial_registration'
+        Button:
+            text: 'Volver al Inicio'
+            size_hint_y: None
+            height: 40
+            on_press: app.root.current = 'login'
+
+<FacialRegistrationScreen>:
+    name: 'facial_registration'
+    canvas.before:
+        Color:
+            rgba: C_DARK_BG
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 20
+        spacing: 10
+        Label:
+            text: 'Registro Facial'
+            font_size: '28sp'
+            size_hint_y: None
+            height: 40
+        Label:
+            id: feedback_label
+            text: 'Presione "Iniciar" para comenzar'
+            font_size: '16sp'
+            size_hint_y: None
+            height: 20
+        Image:
+            id: camera_feed
+            size_hint_y: 0.8
+        Button:
+            id: action_button
+            text: 'Iniciar Registro Facial'
+            font_size: '20sp'
+            size_hint_y: None
+            height: 50
+            on_press: root.start_intelligent_capture()
+        Button:
+            text: 'Volver'
+            font_size: '18sp'
+            size_hint_y: None
+            height: 40
+            on_press: app.root.current = 'choice'
+
+<RoleSelectionScreen>:
+    name: 'role_selection'
+    canvas.before:
+        Color:
+            rgba: C_DARK_BG
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 50
+        spacing: 20
+        Label:
+            text: '¡Registro Facial Exitoso!'
+            font_size: '28sp'
+            size_hint_y: None
+            height: 50
+        Label:
+            text: 'Para finalizar, por favor, seleccione su rol:'
+            font_size: '20sp'
+            size_hint_y: 0.3
+        Button:
+            text: 'Soy un Paciente'
+            font_size: '20sp'
+            on_press: root.select_role('paciente')
+        Button:
+            text: 'Soy un Cuidador'
+            font_size: '20sp'
+            on_press: root.select_role('cuidador')
+
+<MainMenuScreen>:
+    name: 'main_menu'
+    canvas.before:
+        Color:
+            rgba: C_DARK_BG
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 50
+        spacing: 20
+        Label:
+            id: welcome_label
+            text: '¡Bienvenido!'
+            font_size: '32sp'
+            size_hint_y: 0.2
+        Button:
+            text: 'Reconocer Persona '
+            font_size: '22sp'
+            on_press: app.root.current = 'recognition'
+        Button:
+            text: 'Panorama del dia'
+            font_size: '22sp'
+            on_press: app.root.current = 'orientation'
+        Button:
+            text: 'Agregar Recordatorio'
+            font_size: '22sp'
+            on_press: root.open_add_reminder_popup()
+        Button:
+            text: 'Ver Mis Recordatorios'
+            font_size: '22sp'
+            on_press: app.root.current = 'reminders_list'
+        BoxLayout:
+            size_hint_y: 0.4
+        Button:
+            text: 'Cerrar Sesión'
+            font_size: '18sp'
+            size_hint_y: None
+            height: 50
+            background_color: C_ACTION_RED
+            on_press: root.logout()
+
+<CaregiverDashboardScreen>:
+    name: 'caregiver_dashboard'
+    canvas.before:
+        Color:
+            rgba: C_DARK_BG
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 20
+        spacing: 10
+        Label:
+            id: welcome_label
+            text: 'Panel de Cuidador'
+            font_size: '32sp'
+            size_hint_y: None
+            height: 50
+        Label:
+            text: 'Seleccione un paciente para gestionar sus recordatorios:'
+            font_size: '18sp'
+            size_hint_y: None
+            height: 30
+        ScrollView:
+            GridLayout:
+                id: patient_list_grid
+                cols: 1
+                size_hint_y: None
+                height: self.minimum_height
+                spacing: 10
+        BoxLayout:
+            size_hint_y: None
+            height: 50
+            spacing: 10
+            Button:
+                text: 'Cerrar Sesión'
+                font_size: '18sp'
+                background_color: C_ACTION_RED
+                on_press: root.logout()
+            Button:
+                text: 'Añadir Paciente'
+                font_size: '18sp'
+                background_color: C_ACTION_GREEN
+                on_press: app.root.current = 'add_patient'
+
+<AddPatientScreen>:
+    name: 'add_patient'
+    canvas.before:
+        Color:
+            rgba: C_DARK_BG
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 20
+        spacing: 10
+        Label:
+            text: 'Vincular Nuevo Paciente'
+            font_size: '28sp'
+            size_hint_y: None
+            height: 40
+        BoxLayout:
+            size_hint_y: None
+            height: 50
+            spacing: 10
+            TextInput:
+                id: search_input
+                hint_text: 'Escriba el nombre del paciente...'
+                font_size: '18sp'
+            Button:
+                text: 'Buscar'
+                size_hint_x: 0.3
+                on_press: root.search_patients()
+        Label:
+            id: status_label
+            text: ''
+            size_hint_y: None
+            height: 20
+        ScrollView:
+            GridLayout:
+                id: search_results_grid
+                cols: 1
+                size_hint_y: None
+                height: self.minimum_height
+                spacing: 10
+        Button:
+            text: 'Volver al Panel'
+            size_hint_y: None
+            height: 50
+            on_press: app.root.current = 'caregiver_dashboard'
+
+<PatientManagementScreen>:
+    name: 'patient_management'
+    canvas.before:
+        Color:
+            rgba: C_DARK_BG
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 20
+        spacing: 10
+        Label:
+            id: patient_name_label
+            text: 'Recordatorios de...'
+            font_size: '28sp'
+            size_hint_y: None
+            height: 40
+        ScrollView:
+            GridLayout:
+                id: reminders_grid
+                cols: 1
+                size_hint_y: None
+                height: self.minimum_height
+                spacing: 10
+        BoxLayout:
+            size_hint_y: None
+            height: 50
+            spacing: 10
+            Button:
+                text: 'Volver a Pacientes'
+                on_press: app.root.current = 'caregiver_dashboard'
+            Button:
+                text: 'Añadir Recordatorio'
+                background_color: C_PRIMARY_BLUE
+                on_press: root.open_add_reminder_popup()
+
+<RemindersListScreen>:
+    name: 'reminders_list'
+    canvas.before:
+        Color:
+            rgba: C_DARK_BG
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 20
+        spacing: 10
+        Label:
+            text: 'Mis Recordatorios'
+            font_size: '28sp'
+            size_hint_y: None
+            height: 40
+        ScrollView:
+            GridLayout:
+                id: reminders_grid
+                cols: 1
+                size_hint_y: None
+                height: self.minimum_height
+                spacing: 10
+        Button:
+            text: 'Volver al Menú'
+            size_hint_y: None
+            height: 40
+            on_press: app.root.current = 'main_menu'
+
+<OrientationScreen>:
+    name: 'orientation'
+    canvas.before:
+        Color:
+            rgba: C_DARK_BG
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 40
+        spacing: 30
+        Label:
+            id: date_label
+            font_name: 'Roboto-Regular.ttf'
+            text: 'Cargando fecha...'
+            font_size: '30sp'
+            size_hint_y: 0.4
+        Label:
+            id: time_label
+            text: '00:00:00'
+            font_size: '45sp'
+            bold: True
+        Button:
+            text: 'Volver al Menú'
+            size_hint_y: None
+            height: 50
+            on_press: app.root.current = 'main_menu'
+
+<RecognitionScreen>:
+    name: 'recognition'
+    canvas.before:
+        Color:
+            rgba: C_DARK_BG
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 20
+        spacing: 10
+        Label:
+            text: 'Apunte la cámara a una persona...'
+            font_size: '20sp'
+            size_hint_y: None
+            height: 30
+        Image:
+            id: camera_feed
+            size_hint_y: 0.8
+        Button:
+            text: 'Volver al Menú'
+            size_hint_y: None
+            height: 50
+            on_press: app.root.current = 'main_menu'
