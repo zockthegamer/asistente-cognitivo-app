@@ -16,7 +16,7 @@ jobs:
           python-version: '3.9'
 
       - name: Setup Android SDK
-        uses: android-actions/setup-sdk@v2
+        uses: android-actions/setup-android@v3
 
       - name: Install dependencies
         run: |
